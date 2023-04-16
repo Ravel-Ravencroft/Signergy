@@ -21,7 +21,6 @@ def detect_landmarks(image: np.ndarray, model: Holistic) -> dict[str, Normalized
 	`Numpy nD-Array` of type `Float64` and shape `(21,3)`
 	"""
 	image = cv2.cvtColor(src=image, code=cv2.COLOR_BGR2RGB)
-	image = cv2.flip(src=image, flipCode=1)
 	image.setflags(write=False)
 
 	result = model.process(image=image)
@@ -32,7 +31,7 @@ def detect_landmarks(image: np.ndarray, model: Holistic) -> dict[str, Normalized
 	}
 
 
-def _extract_landmarks(landmarks: NormalizedLandmarkList | None) -> np.ndarray[np.float64]:
+def extract_landmarks(landmarks: NormalizedLandmarkList | None) -> np.ndarray[np.float64]:
 	"""
 	If a hand was detected, extracts the X, Y and Z coordinates from the resulting `Mediapipe NormalizedLandmarkList` and returns them as a `Numpy nD-Array` of type `Float64` and  shape `(21,3)` (21 Landmarks in a Hand, 3 Coordinates per Landmark).
 
