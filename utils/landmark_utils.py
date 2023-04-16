@@ -14,7 +14,7 @@ def detect_landmarks(image: np.ndarray, model: Holistic) -> dict[str, Normalized
 	----------
 	image: np.ndarray
 		`Numpy nD-Array` of type `Float64`
-	model: `Mediapipe Hands` Model
+	model: `Mediapipe Holistic` Model
 
 	Returns
 	-------
