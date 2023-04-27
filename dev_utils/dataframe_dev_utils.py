@@ -7,12 +7,11 @@ import pickle as pkl
 from mediapipe.python.solutions.holistic import Holistic
 
 from dev_utils.common_dev_params import Status, DATA_DIR, SIGNS_DIR, TRIMS_DIR
-from utils import dataframe_utils as dtfm, landmark_utils as lnmk
+from utils import landmark_utils as lnmk
 
 
 DF_D_TYPES = {
 	"sign": "category",
-	"hand": "category",
 }
 
 
@@ -101,17 +100,10 @@ def create_dataframe(overwrite: bool = False) -> Status:
 			"file_name": file.name,
 			"sign": file.parent.name,
 			"left": _load_pickle(file_path=(file / f"{file.name}_left.pkl")),
-			"right": _load_pickle(file_path=(file / f"{file.name}_right.pkl")),
-			"hand": ""
+			"right": _load_pickle(file_path=(file / f"{file.name}_right.pkl"))
 		}
 		for file in SIGNS_DIR.rglob("*/*/**")
 	]
-
-	for item in dataset:
-		if (not (hand := dtfm.map_hands(hand_vector=(item["left"], item["right"])))):
-			continue
-
-		item["hand"] = hand.value
 
 	pd.DataFrame.from_records(dataset).astype(DF_D_TYPES).to_pickle(DATA_DIR / "dataset.pkl")
 
@@ -134,15 +126,9 @@ def create_sign_dataframes(overwrite: bool = False) -> Status:
 				"sign": file.parent.name,
 				"left": _load_pickle(file_path=(file / f"{file.name}_left.pkl")),
 				"right": _load_pickle(file_path=(file / f"{file.name}_right.pkl")),
-				"hand": ""
 			}
 			for file in sign.rglob("*/**")
 		]
-
-		for item in dataset:
-			if (not (hand := dtfm.map_hands(hand_vector=(item["left"], item["right"])))):
-				hand = ""
-			item["hand"] = hand.value
 
 		pd.DataFrame.from_records(dataset).astype(DF_D_TYPES).to_pickle(sign / f"{sign.name}.pkl")
 
