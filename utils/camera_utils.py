@@ -2,8 +2,8 @@ import cv2
 import numpy as np
 
 from mediapipe.framework.formats.landmark_pb2 import NormalizedLandmarkList
-from mediapipe.python.solutions.hands_connections import HAND_CONNECTIONS
 from mediapipe.python.solutions import drawing_styles, drawing_utils
+from mediapipe.python.solutions.hands_connections import HAND_CONNECTIONS
 
 
 def draw_landmarks(
