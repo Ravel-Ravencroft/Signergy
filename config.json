@@ -1,0 +1,11 @@
+{
+	"model_name": "model",
+	"encoder_name": "label_encoder",
+	"stream_mode": true,
+	"settings": {
+        "cam_src": 0,
+		"max_size": 78,
+		"sign_duration": 78,
+		"gap_duration": 39
+	}
+}

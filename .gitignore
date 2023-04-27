@@ -1,7 +1,6 @@
 # Project-Specific Files
-data/*
-tests/
-test.py
+data/sign_files
+data/trimmed_videos
 
 # Editor / IDE
 .vscode/

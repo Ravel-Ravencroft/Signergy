@@ -1,3 +1,8 @@
+keras
 mediapipe
-opencv-python
 numpy
+pandas
+opencv-python
+pyvirtualcam
+scikit-learn
+tensorflow

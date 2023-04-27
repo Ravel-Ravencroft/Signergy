@@ -1,5 +1,4 @@
 import cv2
-import screeninfo
 
 
 def get_camera_ids() -> set[int]:
@@ -28,16 +27,3 @@ def get_camera_dimensions(camera_id: int = 0) -> dict[str, int]:
 	cap.release()
 
 	return {"width": width, "height": height, "fps": fps}
-
-
-def get_monitor_names() -> list[str]:
-	return sorted([monitor.name for monitor in screeninfo.get_monitors()])
-
-
-def get_screen_dimensions(monitor_name: str = None) -> dict[str, int]:
-	for monitor in screeninfo.get_monitors():
-		if (monitor_name and monitor.name == monitor_name):
-			return {"width": monitor.width, "height": monitor.height}
-		
-		if (not monitor_name and monitor.is_primary):
-			return {"width": monitor.width, "height": monitor.height}

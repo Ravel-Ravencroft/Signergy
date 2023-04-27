@@ -1,0 +1,10 @@
+keras
+matplotlib
+mediapipe
+numpy
+opencv-python
+pandas
+pyinstaller
+pyvirtualcam
+scikit-learn
+tensorflow

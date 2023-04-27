@@ -4,7 +4,6 @@ import numpy as np
 from itertools import product
 from mediapipe.framework.formats.landmark_pb2 import NormalizedLandmarkList
 from mediapipe.python.solutions.holistic import Holistic, HAND_CONNECTIONS
-from mediapipe.python.solutions.hands import Hands, HAND_CONNECTIONS
 
 
 def detect_landmarks(image: np.ndarray, model: Holistic) -> dict[str, NormalizedLandmarkList]:
