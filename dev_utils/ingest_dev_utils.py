@@ -13,7 +13,10 @@ def _trim_video(
 		return Status.MISSING
 
 	if ((output_file := TRIMS_DIR / f"{category}/{category}-{video_id}.mp4").is_file()):
-		print(f"Output File '{output_file.name}' Already Exists in the `data/trimmed_videos/{output_file.parent.name}` Directory!!")
+		print(f"""
+	        Output File '{output_file.name}' Already Exists in the 
+	        `data/trimmed_videos/{output_file.parent.name}` Directory!!
+	    """)
 		return Status.EXISTS
 
 	if (not (output_dir := TRIMS_DIR / f"{category}").is_dir()):
@@ -28,7 +31,10 @@ def _trim_video(
 			.run(quiet=True)
 		)
 
-		print(f"Input File `{input_file.name}` has been Trimmed and Placed in the `data/trimmed_videos/{output_file.parent.name}` Directory as {output_file.name}!")
+		print(f"""
+	        Input File `{input_file.name}` has been Trimmed and Placed in the 
+	        `data/trimmed_videos/{output_file.parent.name}` Directory as {output_file.name}!
+	    """)
 		return Status.COMPLETE
 
 	except Exception as e:

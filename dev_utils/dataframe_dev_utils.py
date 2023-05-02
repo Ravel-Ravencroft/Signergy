@@ -154,7 +154,9 @@ def create_custom_dataframe(
 	try:
 		if (signs and per_sign_count):
 			sign_library = pd.concat([
-				pd.read_pickle(df)[:per_sign_count] for df in SIGNS_DIR.glob("*/*.pkl") if df.name.removesuffix(".pkl") in signs
+				pd.read_pickle(df)[:per_sign_count] 
+                    for df in SIGNS_DIR.glob("*/*.pkl") 
+                        if df.name.removesuffix(".pkl") in signs
 			], ignore_index=True)
 
 		if (signs and not per_sign_count):

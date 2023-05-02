@@ -23,12 +23,23 @@ def add_text(image: np.ndarray, text: str) -> np.ndarray:
 	window_height, window_width, _ = image.shape
 	offset = int(window_height * 0.02)
 
-	(text_width, text_height), _ = cv2.getTextSize(text=text, fontFace=cv2.FONT_HERSHEY_COMPLEX, fontScale=1, thickness=2)
+	(text_width, text_height), _ = cv2.getTextSize(
+		text=text,
+        fontFace=cv2.FONT_HERSHEY_COMPLEX,
+        fontScale=1,
+        thickness=2
+	)
 
 	text_x = int((window_width - text_width) / 2)
 	text_y = int(window_height - text_height - offset)
 
-	cv2.rectangle(img=image, pt1=(0, text_y - offset), pt2=(window_width, window_height), color=(245, 242, 176, 0.85), thickness=-1)
+	cv2.rectangle(
+		img=image, 
+	    pt1=(0, text_y - offset), 
+	    pt2=(window_width, window_height), 
+	    color=(245, 242, 176, 0.85), 
+	    thickness=-1
+	)
 
 	cv2.putText(
 		img=image,

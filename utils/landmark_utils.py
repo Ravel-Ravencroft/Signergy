@@ -8,7 +8,8 @@ from mediapipe.python.solutions.holistic import Holistic, HAND_CONNECTIONS
 
 def detect_landmarks(image: np.ndarray, model: Holistic) -> dict[str, NormalizedLandmarkList]:
 	"""
-	Scans the provided image/video-frame and checks for the presense of a Hand(s). Returns a dictionary with the Hand as key, and resulting `Mediapipe NormalizedLandmarkList` as the value.
+	Scans the provided image/video-frame and checks for the presense of a Hand(s). Returns a 
+    dictionary with the Hand as key, and resulting `Mediapipe NormalizedLandmarkList` as the value.
 
 	Parameters
 	----------
@@ -39,7 +40,10 @@ def extract_all_angles(detections: dict[str, NormalizedLandmarkList]) -> dict[st
 			result[hand] = np.zeros(shape=441)
 			continue
 
-		processed = np.nan_to_num(x=[[landmark.x, landmark.y, landmark.z] for landmark in landmarks.landmark])
+		processed = np.nan_to_num(x=[
+			[landmark.x, landmark.y, landmark.z] 
+            for landmark in landmarks.landmark
+	    ])
 
 		connections = map(lambda t: processed[t[1]] - [t[0]], HAND_CONNECTIONS)
 
@@ -56,7 +60,8 @@ def extract_all_angles(detections: dict[str, NormalizedLandmarkList]) -> dict[st
 
 def _get_angle_between_connections(u: np.ndarray, v: np.ndarray) -> np.float64:
 	"""
-	Calculates the Angle between a pair of Connections (A Connection is the direct Vector between two Keypoints) and returns it as a `Numpy Float64`
+	Calculates the Angle between a pair of Connections (A Connection is the direct Vector 
+    between two Keypoints) and returns it as a `Numpy Float64`
 
 	Parameters
 	----------
