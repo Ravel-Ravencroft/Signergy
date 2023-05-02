@@ -1,4 +1,5 @@
 import json
+import logging
 import pickle as pkl
 
 from keras import models as krs
@@ -11,19 +12,33 @@ from modes import practice_mode, stream_mode
 
 
 ROOT_DIR = Path(__file__).parent.resolve()
-DATA_DIR = ROOT_DIR / "data"
+DATA_DIR = ROOT_DIR / 'data'
 
+LOG_LEVEL_TRANSLATION = {
+	'critical': logging.CRITICAL,
+	'debug': logging.DEBUG,
+	'error': logging.ERROR,
+	'info': logging.INFO,
+	'warning': logging.WARNING,
+}
 
-with open(ROOT_DIR / "config.json") as config:
+with open(ROOT_DIR / 'config.json') as config:
 	CONFIG = json.load(fp=config)
+
+logging.basicConfig(
+	level=LOG_LEVEL_TRANSLATION.get(CONFIG['log_level'], logging.ERROR),
+	filename='log.log',
+	filemode='w',
+	format='%(created)f: %(name)s - %(levelname)s - %(message)s'
+)
 
 MEDIAPIPE = Holistic()
 
 
-if (__name__ == "__main__"):
-	MODEL: Sequential = krs.load_model(DATA_DIR / f"{CONFIG['model_name']}.h5")
+if (__name__ == '__main__'):
+	MODEL: Sequential = krs.load_model(DATA_DIR / f'{CONFIG["model_name"]}.h5')
 
-	with open(DATA_DIR / f"{CONFIG['encoder_name']}.pkl", "rb") as file:
+	with open(DATA_DIR / f'{CONFIG["encoder_name"]}.pkl', 'rb') as file:
 		LBL_ENC: LabelEncoder = pkl.load(file)
 
 	if (CONFIG['stream_mode']):
@@ -31,12 +46,12 @@ if (__name__ == "__main__"):
 			model=MODEL,
 			mediapipe=MEDIAPIPE,
 			label_encoder=LBL_ENC,
-			settings=CONFIG["settings"]
+			settings=CONFIG['settings']
 		)
 	else:
 		practice_mode.instantiate(
 			model=MODEL,
 			mediapipe=MEDIAPIPE,
 			label_encoder=LBL_ENC,
-			settings=CONFIG["settings"]
+			settings=CONFIG['settings']
 		)
