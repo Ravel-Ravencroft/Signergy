@@ -52,7 +52,7 @@ def instantiate(
 
 		frame_counter += 1
 
-		if is_recording and (frame_counter < settings["sign_duration"]):
+		if is_recording and (frame_counter < settings["max_size"]):
 			{
 				landmark_lists[hand].append(angles)
 				for hand, angles in landmark_utils.extract_all_angles(
@@ -61,7 +61,7 @@ def instantiate(
 			}
 			continue
 
-		if is_recording and (frame_counter == settings["sign_duration"]):
+		if is_recording and (frame_counter == settings["max_size"]):
 			frame_counter = 0
 			is_recording = False
 			text = model_utils.infer_sign(
@@ -73,7 +73,7 @@ def instantiate(
 			{item.clear() for item in landmark_lists.values()}
 			continue
 
-		if not is_recording and (frame_counter == settings["gap_duration"]):
+		if not is_recording and (frame_counter == (settings["max_size"]/2)):
 			frame_counter = 0
 			is_recording = True
 			text = ""
