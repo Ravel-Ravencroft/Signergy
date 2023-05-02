@@ -16,6 +16,7 @@ a = Analysis(
     binaries=[],
     datas=[
         ('config.json', '.'), 
+        ('readme.md', '.'), 
         ('data/label_encoder.pkl', 'data'), 
         ('data/model.h5', 'data')
     ],
