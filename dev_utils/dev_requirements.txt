@@ -1,8 +1,5 @@
-keras
-matplotlib
+ffmpeg
 mediapipe
-numpy
-opencv-python
 pandas
 pyinstaller
 pyvirtualcam
