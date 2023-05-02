@@ -7,7 +7,7 @@ from mediapipe.python.solutions.holistic import Holistic, HAND_CONNECTIONS
 
 
 def detect_landmarks(image: np.ndarray, model: Holistic) -> dict[str, NormalizedLandmarkList]:
-	"""
+	'''
 	Scans the provided image/video-frame and checks for the presense of a Hand(s). Returns a 
     dictionary with the Hand as key, and resulting `Mediapipe NormalizedLandmarkList` as the value.
 
@@ -20,15 +20,15 @@ def detect_landmarks(image: np.ndarray, model: Holistic) -> dict[str, Normalized
 	Returns
 	-------
 	`Numpy nD-Array` of type `Float64` and shape `(21,3)`
-	"""
+	'''
 	image = cv2.cvtColor(src=image, code=cv2.COLOR_BGR2RGB)
 	image.setflags(write=False)
 
 	result = model.process(image=image)
 
 	return {
-		"left": result.left_hand_landmarks,
-		"right": result.right_hand_landmarks,
+		'left': result.left_hand_landmarks,
+		'right': result.right_hand_landmarks,
 	}
 
 
@@ -59,7 +59,7 @@ def extract_all_angles(detections: dict[str, NormalizedLandmarkList]) -> dict[st
 
 
 def _get_angle_between_connections(u: np.ndarray, v: np.ndarray) -> np.float64:
-	"""
+	'''
 	Calculates the Angle between a pair of Connections (A Connection is the direct Vector 
     between two Keypoints) and returns it as a `Numpy Float64`
 
@@ -71,7 +71,7 @@ def _get_angle_between_connections(u: np.ndarray, v: np.ndarray) -> np.float64:
 	Returns
 	----------
 	`Numpy Float64`
-	"""
+	'''
 	if (np.array_equal(u, v)):
 		return np.float64(0)
 

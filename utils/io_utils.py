@@ -26,4 +26,4 @@ def get_camera_dimensions(camera_id: int = 0) -> dict[str, int]:
 	fps = int(cap.get(cv2.CAP_PROP_FPS))
 	cap.release()
 
-	return {"width": width, "height": height, "fps": fps}
+	return {'width': width, 'height': height, 'fps': fps}

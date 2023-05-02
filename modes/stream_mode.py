@@ -17,11 +17,11 @@ def instantiate(
 ):
 	frame_counter = 0
 	is_recording = True
-	landmark_lists = {"left": [], "right": []}
-	text = ""
+	landmark_lists = {'left': [], 'right': []}
+	text = ''
 
-	dims = io_utils.get_camera_dimensions(settings["cam_src"])
-	cap = cv2.VideoCapture(settings["cam_src"])
+	dims = io_utils.get_camera_dimensions(settings['cam_src'])
+	cap = cv2.VideoCapture(settings['cam_src'])
 
 	with pyvirtualcam.Camera(**dims) as cam:
 		while cap.isOpened():
@@ -42,12 +42,12 @@ def instantiate(
 			frame = cv2.flip(frame, 1)
 			frame = camera_utils.add_text(image=frame, text=text)
 
-			frame = cv2.resize(frame, (dims["width"], dims["height"]), interpolation=cv2.INTER_AREA)
+			frame = cv2.resize(frame, (dims['width'], dims['height']), interpolation=cv2.INTER_AREA)
 			frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
 			frame_counter += 1
 
-			if is_recording and (frame_counter < settings["max_size"]):
+			if is_recording and (frame_counter < settings['max_size']):
 				{
 					landmark_lists[hand].append(angles)
 					for hand, angles in landmark_utils.extract_all_angles(
@@ -56,22 +56,22 @@ def instantiate(
 				}
 				continue
 
-			if is_recording and (frame_counter == settings["max_size"]):
+			if is_recording and (frame_counter == settings['max_size']):
 				frame_counter = 0
 				is_recording = False
 				text = model_utils.infer_sign(
 					landmarks=landmark_lists,
 					model=model,
 					lbl_enc=label_encoder,
-					max_size=settings["max_size"],
+					max_size=settings['max_size'],
 				)
 				{item.clear() for item in landmark_lists.values()}
 				continue
 
-			if not is_recording and (frame_counter == (settings["max_size"]/2)):
+			if not is_recording and (frame_counter == (settings['max_size']/2)):
 				frame_counter = 0
 				is_recording = True
-				text = ""
+				text = ''
 				continue
 
 			cam.send(frame)

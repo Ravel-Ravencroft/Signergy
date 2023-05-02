@@ -16,10 +16,10 @@ def instantiate(
 ):
 	frame_counter = 0
 	is_recording = True
-	landmark_lists = {"left": [], "right": []}
-	text = ""
+	landmark_lists = {'left': [], 'right': []}
+	text = ''
 
-	cap = cv2.VideoCapture(settings["cam_src"])
+	cap = cv2.VideoCapture(settings['cam_src'])
 
 	while cap.isOpened():
 		has_frame, frame = cap.read()
@@ -42,17 +42,17 @@ def instantiate(
 		frame = cv2.flip(frame, 1)
 		frame = camera_utils.add_text(image=frame, text=text)
 
-		cv2.imshow(winname="Practice Mode", mat=frame)
+		cv2.imshow(winname='Practice Mode', mat=frame)
 
 		pressed_key = cv2.waitKey(delay=1) & 0xFF
 
-		if pressed_key == ord("q"):
+		if pressed_key == ord('q'):
 			cv2.destroyAllWindows()
 			break
 
 		frame_counter += 1
 
-		if is_recording and (frame_counter < settings["max_size"]):
+		if is_recording and (frame_counter < settings['max_size']):
 			{
 				landmark_lists[hand].append(angles)
 				for hand, angles in landmark_utils.extract_all_angles(
@@ -61,22 +61,22 @@ def instantiate(
 			}
 			continue
 
-		if is_recording and (frame_counter == settings["max_size"]):
+		if is_recording and (frame_counter == settings['max_size']):
 			frame_counter = 0
 			is_recording = False
 			text = model_utils.infer_sign(
 				landmarks=landmark_lists,
 				model=model,
 				lbl_enc=label_encoder,
-				max_size=settings["max_size"],
+				max_size=settings['max_size'],
 			)
 			{item.clear() for item in landmark_lists.values()}
 			continue
 
-		if not is_recording and (frame_counter == (settings["max_size"]/2)):
+		if not is_recording and (frame_counter == (settings['max_size']/2)):
 			frame_counter = 0
 			is_recording = True
-			text = ""
+			text = ''
 			continue
 
 	cap.release()

@@ -23,7 +23,7 @@ def infer_sign(
 	lbl_enc: LabelEncoder,
 	max_size: int,
 ) -> str:
-	data = normalise_data(landmarks["left"], landmarks["right"], max_size)
+	data = normalise_data(landmarks['left'], landmarks['right'], max_size)
 	input_data = data.reshape((1,) + data.shape)
 
 	return lbl_enc.inverse_transform([np.argmax(model.predict(x=input_data))])[0]
